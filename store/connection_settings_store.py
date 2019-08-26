@@ -5,7 +5,7 @@ from store.app_store import AppStore
 
 
 class ConnectionSettingsStore:
-    CONNECTION_SETTINGS_FILE_NAME = 'connection-store.json'
+    CONNECTION_SETTINGS_FILE_NAME = 'connection-settings.json'
 
     @staticmethod
     def save_settings(settings: ConnectionSettings):
