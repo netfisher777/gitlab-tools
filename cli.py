@@ -2,6 +2,7 @@ import click
 from gitlab_api.gitlab_adapter import GitlabAdapter
 from gitlab_api.gitlab_adapter import Group
 from cli_flows import connection_flow
+from cli_flows import groups_flow
 
 
 @click.group()
@@ -14,14 +15,42 @@ def glt():
 @glt.command()
 def connection(setup: bool, view: bool):
     """Setup or view gitlab connection settings"""
-    args = (setup, view)
-    specified_flags_count = sum(args)
 
-    if specified_flags_count != 1:
-        print('You need to specify one option for the command (just one).')
+    if not check_flags([setup, view]):
         return
 
     if setup:
         connection_flow.start_setup_connection_flow()
     elif view:
         connection_flow.start_view_connection_flow()
+
+
+@click.option('-c', '--create', is_flag=True, help='Create a new group of repositories to work with')
+@click.option('-e', '--edit', is_flag=True, help='Edit an existing group of repositories')
+@click.option('-v', '--view', is_flag=True, help='View existing groups with their contents')
+@glt.command()
+def groups(create: bool, edit: bool, view: bool):
+    """Working with groups of repositories"""
+
+    if not check_flags([create, edit, view]):
+        return
+
+    if create:
+        groups_flow.start_create_group_flow()
+    elif edit:
+        groups_flow.start_edit_group_flow()
+    elif view:
+        groups_flow.start_view_groups_flow()
+
+    return
+
+
+def check_flags(args_list):
+    args = tuple(args_list)
+    specified_flags_count = sum(args)
+
+    if specified_flags_count != 1:
+        print('You need to specify one option for the command (just one).')
+        return False
+    else:
+        return True
