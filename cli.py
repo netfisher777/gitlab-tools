@@ -1,8 +1,9 @@
 import click
-from gitlab_api.gitlab_adapter import GitlabAdapter
-from gitlab_api.gitlab_adapter import Group
-from cli_flows import connection_flow
-from cli_flows import groups_flow
+from cli_flows.connection_setup_flow import ConnectionSetupFlow
+from cli_flows.connection_view_flow import ConnectionViewFlow
+from cli_flows.group_create_flow import GroupCreateFlow
+from cli_flows.group_edit_flow import GroupEditFlow
+from cli_flows.group_view_flow import GroupViewFlow
 
 
 @click.group()
@@ -20,9 +21,9 @@ def connection(setup: bool, view: bool):
         return
 
     if setup:
-        connection_flow.start_setup_connection_flow()
+        ConnectionSetupFlow().start()
     elif view:
-        connection_flow.start_view_connection_flow()
+        ConnectionViewFlow.start()
 
 
 @click.option('-c', '--create', is_flag=True, help='Create a new group of repositories to work with')
@@ -36,11 +37,12 @@ def groups(create: bool, edit: bool, view: bool):
         return
 
     if create:
-        groups_flow.start_create_group_flow()
+
+        GroupCreateFlow().start_create_group_flow()
     elif edit:
-        groups_flow.start_edit_group_flow()
+        GroupEditFlow().start_edit_group_flow()
     elif view:
-        groups_flow.start_view_groups_flow()
+        GroupViewFlow().start_view_groups_flow()
 
     return
 
