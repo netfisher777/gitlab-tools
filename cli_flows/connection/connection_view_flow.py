@@ -1,5 +1,5 @@
 from store.connection_settings_store import ConnectionSettingsStore
-from cli_flows.connection_flow_base import ConnectionFlowBase
+from cli_flows.connection.connection_flow_base import ConnectionFlowBase
 
 
 class ConnectionViewFlow(ConnectionFlowBase):

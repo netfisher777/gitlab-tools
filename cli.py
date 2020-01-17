@@ -1,9 +1,9 @@
 import click
-from cli_flows.connection_setup_flow import ConnectionSetupFlow
-from cli_flows.connection_view_flow import ConnectionViewFlow
-from cli_flows.group_create_flow import GroupCreateFlow
-from cli_flows.group_edit_flow import GroupEditFlow
-from cli_flows.group_view_flow import GroupViewFlow
+from cli_flows.connection.connection_setup_flow import ConnectionSetupFlow
+from cli_flows.connection.connection_view_flow import ConnectionViewFlow
+from cli_flows.group.group_create_flow import GroupCreateFlow
+from cli_flows.group.group_edit_flow import GroupEditFlow
+from cli_flows.group.group_view_flow import GroupViewFlow
 
 
 @click.group()
@@ -30,7 +30,7 @@ def connection(setup: bool, view: bool):
 @click.option('-e', '--edit', is_flag=True, help='Edit an existing group of repositories')
 @click.option('-v', '--view', is_flag=True, help='View existing groups with their contents')
 @glt.command()
-def groups(create: bool, edit: bool, view: bool):
+def group(create: bool, edit: bool, view: bool):
     """Working with groups of repositories"""
 
     if not check_flags([create, edit, view]):
