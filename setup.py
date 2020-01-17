@@ -1,6 +1,6 @@
 """
-To setup this module just run 'pip install --editable' in the root
-P.S. --editable argument is used for live changes without reinstalling
+To setup this module just run 'pip install --editable .' in the root
+P.S. '--editable .' is used for live changes without reinstalling (. for current directory)
 """
 
 from setuptools import setup, find_packages
