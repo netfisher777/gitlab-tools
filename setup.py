@@ -1,3 +1,8 @@
+"""
+To setup this module just run 'pip install --editable' in the root
+P.S. --editable argument is used for live changes without reinstalling
+"""
+
 from setuptools import setup, find_packages
 
 setup(
