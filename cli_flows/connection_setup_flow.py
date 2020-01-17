@@ -6,10 +6,10 @@ from cli_flows.flow_base import FlowBase
 
 class ConnectionSetupFlow(ConnectionFlowBase):
     def __init__(self):
-        ConnectionFlowBase.__init__(self)
+        super().__init__()
 
-    @staticmethod
-    def start():
+    def start(self):
+        super().start()
         print('Executing setup connection settings command')
 
         write_new_settings = True

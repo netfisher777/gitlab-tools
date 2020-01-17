@@ -3,10 +3,10 @@ from cli_flows.flow_base import FlowBase
 
 class GroupCreateFlow(FlowBase):
     def __init__(self):
-        FlowBase.__init__(self)
+        super().__init__()
 
-    @staticmethod
-    def start_create_group_flow():
+    def start(self):
+        super().start()
         print('Executing create new group command')
         group_name = input('Enter new group name: ')
         print('Choose ')

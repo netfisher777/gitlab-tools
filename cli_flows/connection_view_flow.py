@@ -4,10 +4,10 @@ from cli_flows.connection_flow_base import ConnectionFlowBase
 
 class ConnectionViewFlow(ConnectionFlowBase):
     def __init__(self):
-        ConnectionFlowBase.__init__(self)
+        super().__init__()
 
-    @staticmethod
-    def start():
+    def start(self):
+        super().start()
         print('Executing view connection settings command')
         if ConnectionSettingsStore.is_settings_exist():
             print(f'Loaded settings from {ConnectionSettingsStore.get_settings_path()}:')

@@ -1,6 +1,9 @@
-class FlowBase:
+from abc import ABC, abstractmethod
+
+
+class FlowBase(ABC):
     def __init__(self):
-        pass
+        super(FlowBase, self).__init__()
 
     @staticmethod
     def ask_user_to_overwrite_existing(msg: str):
@@ -15,3 +18,7 @@ class FlowBase:
                 received_correct_user_input = True
                 result = True
         return result
+
+    @abstractmethod
+    def start(self):
+        pass

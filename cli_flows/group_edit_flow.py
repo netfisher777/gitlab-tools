@@ -3,8 +3,8 @@ from cli_flows.flow_base import FlowBase
 
 class GroupEditFlow(FlowBase):
     def __init__(self):
-        FlowBase.__init__(self)
+        super().__init__()
 
-    @staticmethod
-    def start_edit_group_flow():
+    def start(self):
+        super().start()
         print('Executing edit existing group command')

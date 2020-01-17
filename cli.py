@@ -23,7 +23,7 @@ def connection(setup: bool, view: bool):
     if setup:
         ConnectionSetupFlow().start()
     elif view:
-        ConnectionViewFlow.start()
+        ConnectionViewFlow().start()
 
 
 @click.option('-c', '--create', is_flag=True, help='Create a new group of repositories to work with')
@@ -37,12 +37,11 @@ def groups(create: bool, edit: bool, view: bool):
         return
 
     if create:
-
-        GroupCreateFlow().start_create_group_flow()
+        GroupCreateFlow().start()
     elif edit:
-        GroupEditFlow().start_edit_group_flow()
+        GroupEditFlow().start()
     elif view:
-        GroupViewFlow().start_view_groups_flow()
+        GroupViewFlow().start()
 
     return
 
@@ -52,7 +51,7 @@ def check_flags(args_list):
     specified_flags_count = sum(args)
 
     if specified_flags_count != 1:
-        print('You need to specify one option for the command (just one).')
+        print('You have to specify only one option for the command')
         return False
     else:
         return True
