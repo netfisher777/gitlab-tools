@@ -1,6 +1,11 @@
 """
-To setup this module just run 'pip install --editable .' in the root
+To setup this module just run:
+$ pip install --editable .
+in the root
 P.S. '--editable .' is used for live changes without reinstalling (. for current directory)
+Also you can setup virtualenv for this project:
+$ virtualenv venv
+$ . venv/bin/activate
 """
 
 from setuptools import setup, find_packages
