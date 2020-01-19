@@ -1,5 +1,5 @@
 import gitlab
-from gitlab_api.group import Group
+from gitlab_api.gitlab_group import GitlabGroup
 
 
 class GitlabAdapter:
@@ -13,6 +13,6 @@ class GitlabAdapter:
 
     def get_available_groups(self):
         groups_from_api = self.__gitlab_api.groups.list()
-        groups = [Group(group_from_api.id, group_from_api.web_url, group_from_api.name)
+        groups = [GitlabGroup(group_from_api.id, group_from_api.web_url, group_from_api.name)
                   for group_from_api in groups_from_api]
         return groups
