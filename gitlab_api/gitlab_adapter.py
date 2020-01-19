@@ -1,5 +1,6 @@
 import gitlab
 from gitlab_api.gitlab_group import GitlabGroup
+from store.connection_settings_store import ConnectionSettingsStore
 
 
 class GitlabAdapter:
@@ -16,3 +17,13 @@ class GitlabAdapter:
         groups = [GitlabGroup(group_from_api.id, group_from_api.web_url, group_from_api.name)
                   for group_from_api in groups_from_api]
         return groups
+
+    # TODO: throw exception when settings don't exist
+    @staticmethod
+    def from_connection_settings():
+        if ConnectionSettingsStore.is_settings_exist():
+            settings = ConnectionSettingsStore.load_saved_settings()
+            adapter_instance = GitlabAdapter(settings.gitlab_url, settings.access_token)
+            return adapter_instance
+        else:
+            return None
