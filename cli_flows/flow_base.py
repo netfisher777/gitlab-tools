@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 
 
 class FlowBase(ABC):
+    RETURN_BACK_COMMAND = 'back'
+
     def __init__(self):
         super(FlowBase, self).__init__()
 

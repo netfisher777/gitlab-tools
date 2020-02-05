@@ -2,7 +2,6 @@ from pathlib import Path
 
 
 class AppStore:
-
     APP_DIR_NAME = 'gitlab-tools'
     FILE_ENCODING = 'utf-8'
 
