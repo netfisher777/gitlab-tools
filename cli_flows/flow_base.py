@@ -3,6 +3,8 @@ from abc import ABC, abstractmethod
 
 class FlowBase(ABC):
     RETURN_BACK_COMMAND = 'back'
+    EXIT_COMMAND = 'exit'
+    SAVE_COMMAND = 'save'
 
     def __init__(self):
         super(FlowBase, self).__init__()

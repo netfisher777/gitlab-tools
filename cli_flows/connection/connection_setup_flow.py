@@ -1,5 +1,5 @@
 from store.connection_settings_store import ConnectionSettingsStore
-from store.connection_settings import ConnectionSettings
+from model.connection_settings import ConnectionSettings
 from cli_flows.connection.connection_flow_base import ConnectionFlowBase
 from cli_flows.flow_base import FlowBase
 

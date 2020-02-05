@@ -1,6 +1,6 @@
 import gitlab
-from gitlab_api.gitlab_group import GitlabGroup
-from gitlab_api.gitlab_project import GitlabProject
+from model.gitlab_group import GitlabGroup
+from model.gitlab_project import GitlabProject
 from store.connection_settings_store import ConnectionSettingsStore
 
 

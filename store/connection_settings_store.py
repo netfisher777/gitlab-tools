@@ -1,6 +1,6 @@
 import json
 
-from store.connection_settings import ConnectionSettings
+from model.connection_settings import ConnectionSettings
 from store.app_store import AppStore
 
 
