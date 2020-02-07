@@ -1,12 +1,12 @@
 from typing import List
-from model.gitlab_project import GitlabProject
+from model.user_project import UserProject
 
 
 class UserGroup:
     def __init__(self):
         self.name: str = None
         self.alias: str = None
-        self.gitlab_projects: List[GitlabProject] = []
+        self.user_projects: List[UserProject] = []
 
-    def add_project(self, gitlab_project: GitlabProject):
-        self.gitlab_projects.append(gitlab_project)
+    def add_project(self, user_project: UserProject):
+        self.user_projects.append(user_project)

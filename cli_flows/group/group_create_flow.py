@@ -3,6 +3,7 @@ from gitlab_api.gitlab_adapter import GitlabAdapter
 from model.gitlab_group import GitlabGroup
 from model.gitlab_project import GitlabProject
 from model.user_group import UserGroup
+from model.user_project import UserProject
 from typing import Dict
 import sys
 
@@ -70,10 +71,7 @@ class GroupCreateFlow(FlowBase):
             elif user_input == FlowBase.SAVE_COMMAND:
                 self.__save_user_group()
             else:
-                self.__verify_chosen_project_number(user_input)
-                chosen_project_number = int(user_input)
-                chosen_project = self.__current_projects_dict[chosen_project_number]
-                self.__user_group.add_project(chosen_project)
+                self.__add_chosen_project(user_input)
 
     def __show_current_projects(self):
         for index, project in self.__current_projects_dict.items():
@@ -81,9 +79,20 @@ class GroupCreateFlow(FlowBase):
 
     def __save_user_group(self):
         print(f'Group with name = {self.__user_group.name}, alias = {self.__user_group.alias} was created')
-        for project in self.__user_group.gitlab_projects:
+        for project in self.__user_group.user_projects:
             print(f'{project.id} {project.name} {project.path_with_namespace} {project.url} {project.ssh_clone_url} {project.http_clone_url} {project.description}')
         sys.exit(0)
+
+    def __add_chosen_project(self, chosen_project_number):
+        self.__verify_chosen_project_number(chosen_project_number)
+        chosen_project_number = int(chosen_project_number)
+        chosen_project = self.__current_projects_dict[chosen_project_number]
+        project_alias = input(f'Enter unique alias for project {chosen_project.path_with_namespace}: ')
+        self.__verify_project_alias(project_alias)
+        user_project = UserProject()
+        user_project.alias = project_alias
+        user_project.gitlab_project = chosen_project
+        self.__user_group.add_project(chosen_project)
 
     # TODO: add implementation
     def __verify_chosen_group_number(self, group_number):
@@ -91,4 +100,8 @@ class GroupCreateFlow(FlowBase):
 
     # TODO: add implementation
     def __verify_chosen_project_number(self, project_number):
+        pass
+
+    # TODO: add implementation
+    def __verify_project_alias(self, project_alias):
         pass
