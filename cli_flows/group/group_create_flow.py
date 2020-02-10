@@ -2,8 +2,8 @@ from cli_flows.flow_base import FlowBase
 from gitlab_api.gitlab_adapter import GitlabAdapter
 from model.gitlab_group import GitlabGroup
 from model.gitlab_project import GitlabProject
-from model.user_group import UserGroup
 from model.user_project import UserProject
+from model.editable_user_group import EditableUserGroup
 from typing import Dict
 import sys
 
@@ -13,7 +13,7 @@ class GroupCreateFlow(FlowBase):
         super().__init__()
         self.__available_groups_dict: Dict[int, GitlabGroup] = None
         self.__current_projects_dict: Dict[int, GitlabProject] = None
-        self.__user_group: UserGroup = UserGroup()
+        self.__editable_user_group: EditableUserGroup = EditableUserGroup()
         self.__gitlab_adapter: GitlabAdapter = None
 
     def start(self):
@@ -21,8 +21,8 @@ class GroupCreateFlow(FlowBase):
         print('Executing create new group command')
         self.__init_gitlab_adapter()
         self.__load_initial_data()
-        self.__user_group.name = input('Enter new group name: ')
-        self.__user_group.alias = input('Enter new group alias: ')
+        self.__editable_user_group.name = input('Enter new group name: ')
+        self.__editable_user_group.alias = input('Enter new group alias: ')
         self.__choose_available_groups_loop()
 
     def __init_gitlab_adapter(self):
@@ -78,9 +78,9 @@ class GroupCreateFlow(FlowBase):
             print(f'{index} {project.name} {project.path_with_namespace} {project.description}')
 
     def __save_user_group(self):
-        print(f'Group with name = {self.__user_group.name}, alias = {self.__user_group.alias} was created')
-        for project in self.__user_group.user_projects:
-            print(f'{project.id} {project.name} {project.path_with_namespace} {project.url} {project.ssh_clone_url} {project.http_clone_url} {project.description}')
+        print(f'Group with name = {self.__editable_user_group.name}, alias = {self.__editable_user_group.alias} was created')
+        for project in self.__editable_user_group.user_projects:
+            print(f'{project.alias} {project.gitlab_project.id} {project.gitlab_project.name}  {project.gitlab_project.path_with_namespace} {project.gitlab_project.url} {project.gitlab_project.ssh_clone_url} {project.gitlab_project.http_clone_url} {project.gitlab_project.description}')
         sys.exit(0)
 
     def __add_chosen_project(self, chosen_project_number):
@@ -92,7 +92,7 @@ class GroupCreateFlow(FlowBase):
         user_project = UserProject()
         user_project.alias = project_alias
         user_project.gitlab_project = chosen_project
-        self.__user_group.add_project(chosen_project)
+        self.__editable_user_group.add_project(user_project)
 
     # TODO: add implementation
     def __verify_chosen_group_number(self, group_number):
