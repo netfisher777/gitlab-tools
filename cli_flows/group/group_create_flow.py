@@ -78,9 +78,10 @@ class GroupCreateFlow(FlowBase):
             print(f'{index} {project.name} {project.path_with_namespace} {project.description}')
 
     def __save_user_group(self):
-        print(f'Group with name = {self.__editable_user_group.name}, alias = {self.__editable_user_group.alias} was created')
-        for project in self.__editable_user_group.user_projects:
-            print(f'{project.alias} {project.gitlab_project.id} {project.gitlab_project.name}  {project.gitlab_project.path_with_namespace} {project.gitlab_project.url} {project.gitlab_project.ssh_clone_url} {project.gitlab_project.http_clone_url} {project.gitlab_project.description}')
+        # print(f'Group with name = {self.__editable_user_group.name}, alias = {self.__editable_user_group.alias} was created')
+        # for project in self.__editable_user_group.user_projects:
+        #     print(f'{project.alias} {project.gitlab_project.id} {project.gitlab_project.name}  {project.gitlab_project.path_with_namespace} {project.gitlab_project.url} {project.gitlab_project.ssh_clone_url} {project.gitlab_project.http_clone_url} {project.gitlab_project.description}')
+
         sys.exit(0)
 
     def __add_chosen_project(self, chosen_project_number):
