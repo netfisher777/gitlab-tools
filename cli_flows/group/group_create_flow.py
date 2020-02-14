@@ -5,7 +5,9 @@ from model.gitlab_project import GitlabProject
 from model.user_project import UserProject
 from model.editable_user_group import EditableUserGroup
 from store.user_projects_store import UserProjectsStore
+from store.user_groups_store import UserGroupsStore
 from model.user_projects import UserProjects
+from model.user_group import UserGroup
 from typing import Dict
 import sys
 
@@ -83,12 +85,18 @@ class GroupCreateFlow(FlowBase):
             print(f'{index} {project.name} {project.path_with_namespace} {project.description}')
 
     def __save_user_group(self):
-        print(f'Saving group with name = {self.__editable_user_group.name}, alias = {self.__editable_user_group.alias}')
         group_name = self.__editable_user_group.name
         group_alias = self.__editable_user_group.alias
-        user_projects = self.__editable_user_group.user_projects
-        user_projects = UserProjects().add_projects(user_projects)
+        print(f'Saving group with name = {group_name}, alias = {group_alias}')
+        new_projects_list = self.__editable_user_group.projects_list
+        user_projects = UserProjectsStore.load_from_store()
+        user_projects.add_projects(new_projects_list)
         UserProjectsStore.save(user_projects)
+        new_projects_aliases = [project.alias for project in new_projects_list]
+        new_user_group = UserGroup(group_name, group_alias, new_projects_aliases)
+        user_groups = UserGroupsStore.load_from_store()
+        user_groups.add_group(new_user_group)
+        UserGroupsStore.save(user_groups)
         sys.exit(0)
 
     def __add_chosen_project(self, chosen_project_number):

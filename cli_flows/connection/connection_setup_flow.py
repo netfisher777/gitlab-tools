@@ -14,7 +14,7 @@ class ConnectionSetupFlow(ConnectionFlowBase):
 
         write_new_settings = True
 
-        if ConnectionSettingsStore.exist():
+        if ConnectionSettingsStore.exists():
             print(f'Connection settings already exist in {ConnectionSettingsStore.get_path()}: ')
             ConnectionFlowBase.print_existing_connection_settings()
             write_new_settings = FlowBase.ask_user_to_overwrite_existing('Do you want to overwrite them? (y/n):',

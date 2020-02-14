@@ -6,7 +6,7 @@ class EditableUserGroup:
     def __init__(self):
         self.name: str = None
         self.alias: str = None
-        self.user_projects: List[UserProject] = []
+        self.projects_list: List[UserProject] = []
 
     def add_project(self, user_project: UserProject):
-        self.user_projects.append(user_project)
+        self.projects_list.append(user_project)

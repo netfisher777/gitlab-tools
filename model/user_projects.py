@@ -4,11 +4,11 @@ from typing import List
 
 
 class UserProjects:
-    def __init__(self, projects: Dict[str, UserProject] = None):
+    def __init__(self, projects: Dict[str, UserProject] = {}):
         """
         projects: Dict[str, UserProject] - path_with_namespace for key, UserProject for value
         """
-        self.projects: Dict[str, UserProject] = projects if projects is not None else {}
+        self.projects: Dict[str, UserProject] = projects
 
     def add_project(self, user_project: UserProject):
         self.projects[user_project.alias] = user_project
