@@ -9,7 +9,7 @@ class ConnectionFlowBase(FlowBase):
 
     @staticmethod
     def print_existing_connection_settings():
-        settings = ConnectionSettingsStore.load_saved_settings()
+        settings = ConnectionSettingsStore.load_from_store()
         print(f'Gitlab url: {settings.gitlab_url}')
         print(f'API access token: {settings.access_token}')
 

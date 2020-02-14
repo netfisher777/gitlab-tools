@@ -30,8 +30,8 @@ class GitlabAdapter:
     # TODO: throw exception when settings don't exist
     @staticmethod
     def from_connection_settings():
-        if ConnectionSettingsStore.is_settings_exist():
-            settings = ConnectionSettingsStore.load_saved_settings()
+        if ConnectionSettingsStore.exist():
+            settings = ConnectionSettingsStore.load_from_store()
             adapter_instance = GitlabAdapter(settings.gitlab_url, settings.access_token)
             return adapter_instance
         else:

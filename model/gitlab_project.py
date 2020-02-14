@@ -6,5 +6,9 @@ class GitlabProject:
         self.http_clone_url = http_clone_url
         self.url = url
         self.name = name
-        self.path_with_namespace = path_with_namespace
         self.description = description
+        self.path_with_namespace = path_with_namespace
+
+    @classmethod
+    def from_json(cls, data):
+        return cls(**data)

@@ -9,8 +9,8 @@ class ConnectionViewFlow(ConnectionFlowBase):
     def start(self):
         super().start()
         print('Executing view connection settings command')
-        if ConnectionSettingsStore.is_settings_exist():
-            print(f'Loaded settings from {ConnectionSettingsStore.get_settings_path()}:')
+        if ConnectionSettingsStore.exist():
+            print(f'Loaded settings from {ConnectionSettingsStore.get_path()}:')
             ConnectionFlowBase.print_existing_connection_settings()
         else:
-            print(f'Connection settings are not exist. Suspected path: {ConnectionSettingsStore.get_settings_path()}')
+            print(f'Connection settings are not exist. Suspected path: {ConnectionSettingsStore.get_path()}')

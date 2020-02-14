@@ -4,6 +4,8 @@ from model.gitlab_group import GitlabGroup
 from model.gitlab_project import GitlabProject
 from model.user_project import UserProject
 from model.editable_user_group import EditableUserGroup
+from store.user_projects_store import UserProjectsStore
+from model.user_projects import UserProjects
 from typing import Dict
 import sys
 
@@ -21,8 +23,11 @@ class GroupCreateFlow(FlowBase):
         print('Executing create new group command')
         self.__init_gitlab_adapter()
         self.__load_initial_data()
-        self.__editable_user_group.name = input('Enter new group name: ')
-        self.__editable_user_group.alias = input('Enter new group alias: ')
+        name = input('Enter new group name: ')
+        alias = input('Enter new group alias: ')
+        self.__editable_user_group.name = name
+        self.__verify_group_alias(alias)
+        self.__editable_user_group.alias = alias
         self.__choose_available_groups_loop()
 
     def __init_gitlab_adapter(self):
@@ -78,10 +83,12 @@ class GroupCreateFlow(FlowBase):
             print(f'{index} {project.name} {project.path_with_namespace} {project.description}')
 
     def __save_user_group(self):
-        # print(f'Group with name = {self.__editable_user_group.name}, alias = {self.__editable_user_group.alias} was created')
-        # for project in self.__editable_user_group.user_projects:
-        #     print(f'{project.alias} {project.gitlab_project.id} {project.gitlab_project.name}  {project.gitlab_project.path_with_namespace} {project.gitlab_project.url} {project.gitlab_project.ssh_clone_url} {project.gitlab_project.http_clone_url} {project.gitlab_project.description}')
-
+        print(f'Saving group with name = {self.__editable_user_group.name}, alias = {self.__editable_user_group.alias}')
+        group_name = self.__editable_user_group.name
+        group_alias = self.__editable_user_group.alias
+        user_projects = self.__editable_user_group.user_projects
+        user_projects = UserProjects().add_projects(user_projects)
+        UserProjectsStore.save(user_projects)
         sys.exit(0)
 
     def __add_chosen_project(self, chosen_project_number):
@@ -94,6 +101,10 @@ class GroupCreateFlow(FlowBase):
         user_project.alias = project_alias
         user_project.gitlab_project = chosen_project
         self.__editable_user_group.add_project(user_project)
+
+    # TODO: add implementation
+    def __verify_group_alias(self, group_alias):
+        pass
 
     # TODO: add implementation
     def __verify_chosen_group_number(self, group_number):

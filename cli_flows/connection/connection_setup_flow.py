@@ -14,8 +14,8 @@ class ConnectionSetupFlow(ConnectionFlowBase):
 
         write_new_settings = True
 
-        if ConnectionSettingsStore.is_settings_exist():
-            print(f'Connection settings already exist in {ConnectionSettingsStore.get_settings_path()}: ')
+        if ConnectionSettingsStore.exist():
+            print(f'Connection settings already exist in {ConnectionSettingsStore.get_path()}: ')
             ConnectionFlowBase.print_existing_connection_settings()
             write_new_settings = FlowBase.ask_user_to_overwrite_existing('Do you want to overwrite them? (y/n):',
                                                                          'y', 'n')
@@ -28,4 +28,4 @@ class ConnectionSetupFlow(ConnectionFlowBase):
         url = input('Enter url to gitlab: ')
         access_token = input('Enter your access token to gitlab: ')
         connection_settings = ConnectionSettings(gitlab_url=url, access_token=access_token)
-        ConnectionSettingsStore.save_settings(connection_settings)
+        ConnectionSettingsStore.save(connection_settings)
