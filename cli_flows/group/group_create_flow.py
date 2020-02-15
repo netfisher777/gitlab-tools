@@ -6,7 +6,6 @@ from model.user_project import UserProject
 from model.editable_user_group import EditableUserGroup
 from store.user_projects_store import UserProjectsStore
 from store.user_groups_store import UserGroupsStore
-from model.user_projects import UserProjects
 from model.user_group import UserGroup
 from typing import Dict
 import sys
@@ -15,8 +14,8 @@ import sys
 class GroupCreateFlow(FlowBase):
     def __init__(self):
         super().__init__()
-        self.__available_groups_dict: Dict[int, GitlabGroup] = None
-        self.__current_projects_dict: Dict[int, GitlabProject] = None
+        self.__available_groups_dict: Dict[int, GitlabGroup] = {}
+        self.__current_projects_dict: Dict[int, GitlabProject] = {}
         self.__editable_user_group: EditableUserGroup = EditableUserGroup()
         self.__gitlab_adapter: GitlabAdapter = None
 
@@ -50,8 +49,7 @@ class GroupCreateFlow(FlowBase):
                 sys.exit(0)
             elif user_input == FlowBase.SAVE_COMMAND:
                 self.__save_user_group()
-            else:
-                self.__verify_chosen_group_number(user_input)
+            elif self.__verify_chosen_group_number(user_input):
                 chosen_group_number = int(user_input)
                 self.__load_available_projects_for_group(chosen_group_number)
                 self.__choose_from_current_projects_loop()
@@ -77,7 +75,7 @@ class GroupCreateFlow(FlowBase):
                 sys.exit(0)
             elif user_input == FlowBase.SAVE_COMMAND:
                 self.__save_user_group()
-            else:
+            elif self.__verify_chosen_project_number(user_input):
                 self.__add_chosen_project(user_input)
 
     def __show_current_projects(self):
@@ -100,7 +98,6 @@ class GroupCreateFlow(FlowBase):
         sys.exit(0)
 
     def __add_chosen_project(self, chosen_project_number):
-        self.__verify_chosen_project_number(chosen_project_number)
         chosen_project_number = int(chosen_project_number)
         chosen_project = self.__current_projects_dict[chosen_project_number]
         project_alias = input(f'Enter unique alias for project {chosen_project.path_with_namespace}: ')
@@ -116,11 +113,21 @@ class GroupCreateFlow(FlowBase):
 
     # TODO: add implementation
     def __verify_chosen_group_number(self, group_number):
-        pass
+        groups = self.__available_groups_dict
+        group = groups.get(int(group_number)) if group_number and group_number.isdigit() else None
+        if group:
+            return True
+        else:
+            return False
 
     # TODO: add implementation
     def __verify_chosen_project_number(self, project_number):
-        pass
+        projects = self.__current_projects_dict
+        project = projects.get(int(project_number)) if project_number and project_number.isdigit() else None
+        if project:
+            return True
+        else:
+            return False
 
     # TODO: add implementation
     def __verify_project_alias(self, project_alias):

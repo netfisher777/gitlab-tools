@@ -5,6 +5,7 @@ class FlowBase(ABC):
     RETURN_BACK_COMMAND = 'back'
     EXIT_COMMAND = 'exit'
     SAVE_COMMAND = 'save'
+    ALL_COMMAND = 'all'
 
     def __init__(self):
         super(FlowBase, self).__init__()
