@@ -111,7 +111,7 @@ class GroupCreateFlow(FlowBase):
     def __verify_group_alias(self, group_alias):
         pass
 
-    # TODO: add implementation
+    # TODO: extract to utils
     def __verify_chosen_group_number(self, group_number):
         groups = self.__available_groups_dict
         group = groups.get(int(group_number)) if group_number and group_number.isdigit() else None
@@ -120,7 +120,7 @@ class GroupCreateFlow(FlowBase):
         else:
             return False
 
-    # TODO: add implementation
+    # TODO: extract to utils
     def __verify_chosen_project_number(self, project_number):
         projects = self.__current_projects_dict
         project = projects.get(int(project_number)) if project_number and project_number.isdigit() else None
