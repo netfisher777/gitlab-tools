@@ -37,7 +37,10 @@ class GroupCreateFlow(FlowBase):
         self.__gitlab_adapter.connect()
 
     def __load_initial_data(self):
+        loading_bar = LoadingBar(label='Loading', symbol='.', number_of_symbols=3, timeout=0.2)
+        loading_bar.start()
         gitlab_groups = self.__gitlab_adapter.get_groups()
+        loading_bar.stop()
         self.__available_groups_dict = {i + 1: gitlab_groups[i] for i in range(0, len(gitlab_groups))}
 
     def __choose_available_groups_loop(self):
