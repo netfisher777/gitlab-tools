@@ -47,3 +47,4 @@ class LoadingBar:
         self.__running = False
         self.__loading_task.terminate()
         sys.stdout.write(LoadingBar.CLEAR_LINE_CODE)
+        sys.stdout.flush()
