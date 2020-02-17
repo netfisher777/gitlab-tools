@@ -13,13 +13,13 @@ class GitlabAdapter:
     def connect(self):
         self.__gitlab_api.auth()
 
-    def get_available_groups(self):
+    def get_groups(self):
         groups_from_api = self.__gitlab_api.groups.list(all=True)
         groups = [GitlabGroup(group_from_api.id, group_from_api.web_url, group_from_api.name)
                   for group_from_api in groups_from_api]
         return groups
 
-    def get_available_projects_for_group(self, group_id):
+    def get_projects_for_group(self, group_id):
         group = self.__gitlab_api.groups.get(group_id)
         projects_from_api = group.projects.list(all=True)
         projects = [GitlabProject(project_from_api.id, project_from_api.ssh_url_to_repo, project_from_api.http_url_to_repo,

@@ -24,11 +24,15 @@ class GroupViewFlow(FlowBase):
             self.__show_user_groups()
             user_input = input('Choose alias to view its contents ("all" - to view all groups): ')
             if user_input == FlowBase.ALL_COMMAND:
+                print('-------------------------START OF GROUP CONTENTS-------------------------')
                 self.__show_all_groups_with_contents()
+                print('-------------------------END OF GROUP CONTENTS---------------------------')
             elif user_input == FlowBase.EXIT_COMMAND:
                 sys.exit(0)
             elif self.__verify_chosen_group_alias(user_input):
+                print('-------------------------START OF GROUP CONTENTS-------------------------')
                 self.__show_group_projects(user_input)
+                print('-------------------------END OF GROUP CONTENTS---------------------------')
 
     def __load_initial_data(self):
         self.__user_groups_dict = UserGroupsStore.load_from_store().groups

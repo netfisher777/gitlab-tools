@@ -9,6 +9,7 @@ from store.user_groups_store import UserGroupsStore
 from model.user_group import UserGroup
 from typing import Dict
 import sys
+from utils.loading_bar import LoadingBar
 
 
 class GroupCreateFlow(FlowBase):
@@ -36,7 +37,7 @@ class GroupCreateFlow(FlowBase):
         self.__gitlab_adapter.connect()
 
     def __load_initial_data(self):
-        gitlab_groups = self.__gitlab_adapter.get_available_groups()
+        gitlab_groups = self.__gitlab_adapter.get_groups()
         self.__available_groups_dict = {i + 1: gitlab_groups[i] for i in range(0, len(gitlab_groups))}
 
     def __choose_available_groups_loop(self):
@@ -60,7 +61,10 @@ class GroupCreateFlow(FlowBase):
 
     def __load_available_projects_for_group(self, group_number: int):
         group = self.__available_groups_dict[group_number]
-        gitlab_projects = self.__gitlab_adapter.get_available_projects_for_group(group.id)
+        loading_bar = LoadingBar(label='Loading', symbol='.', number_of_symbols=3, timeout=0.2)
+        loading_bar.start()
+        gitlab_projects = self.__gitlab_adapter.get_projects_for_group(group.id)
+        loading_bar.stop()
         self.__current_projects_dict = {i + 1: gitlab_projects[i] for i in range(0, len(gitlab_projects))}
 
     def __choose_from_current_projects_loop(self):
