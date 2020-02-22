@@ -1,4 +1,5 @@
 from cli_flows.flow_base import FlowBase
+from cli_flows.group.group_flow_base import GroupFlowBase
 from gitlab_api.gitlab_adapter import GitlabAdapter
 from model.gitlab_group import GitlabGroup
 from model.gitlab_project import GitlabProject
@@ -12,7 +13,7 @@ import sys
 from utils.loading_bar import LoadingBar
 
 
-class GroupCreateFlow(FlowBase):
+class GroupCreateFlow(GroupFlowBase):
     def __init__(self):
         super().__init__()
         self.__available_groups_dict: Dict[int, GitlabGroup] = {}
