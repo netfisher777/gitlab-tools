@@ -13,4 +13,4 @@ class ConnectionViewFlow(ConnectionFlowBase):
             print(f'Loaded settings from {ConnectionSettingsStore.get_path()}:')
             ConnectionFlowBase.print_existing_connection_settings()
         else:
-            print(f'Connection settings are not exist. Suspected path: {ConnectionSettingsStore.get_path()}')
+            print(f'Connection settings do not exist. Expected path: {ConnectionSettingsStore.get_path()}')
